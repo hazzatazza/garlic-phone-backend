@@ -1,0 +1,12 @@
+name = "doodle-phone"
+main = "worker.js"
+compatibility_date = "2025-01-01"
+
+[[durable_objects.bindings]]
+name = "ROOMS"
+class_name = "Room"
+
+# SQLite-backed Durable Objects work on the free plan
+[[migrations]]
+tag = "v1"
+new_sqlite_classes = ["Room"]
