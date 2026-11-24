@@ -1,4 +1,4 @@
-name = "doodle-phone"
+name = "garlic-phone-backend"
 main = "worker.js"
 compatibility_date = "2025-01-01"
 
