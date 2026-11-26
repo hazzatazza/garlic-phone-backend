@@ -9,7 +9,7 @@
 const MAX_PLAYERS = 20;
 const MAX_MSG = 900000;
 const MAX_IMG = 800000;
-const MAX_TEXT = 60;
+const MAX_TEXT = 100;
 const GRACE_MS = 4000;
 const LOBBY_DROP_MS = 8000;
 const AVATARS = 61;
@@ -34,29 +34,31 @@ const MUTATIONS = ['Make it evil', '100 years later', 'Underwater', 'On fire', '
   'Add too many eyes', 'Make it a superhero', 'Everything is made of cheese', 'Add a ridiculous hat', 'Make it cursed', 'Winter is coming', 'It is a wedding now', 'Add a giant monster',
   'Make it a crime scene', 'Make it a jungle', 'Turn it into a pirate ship', 'Make it spooky', 'Add a chase scene', 'Make it fancy', 'Add a volcano', 'Make it sad', 'Now it is a circus',
   'Make it a video game', 'Add a UFO', 'Make everything melt', 'Add a baby version', 'Make it a disaster'];
-const FORGERY_PROMPTS = ['A sad pizza', 'A cat wearing glasses', 'An angry cloud', 'A robot eating soup', 'A cactus in love', 'A house on legs', 'A snowman sunbathing', 'A fish riding a bike',
-  'A dancing banana', 'A sleepy volcano', 'A castle made of cheese', 'A bear with a balloon', 'A ghost drinking tea', 'A giraffe in a bathtub', 'A snail with a jetpack', 'A king with a tiny crown',
-  'A guitar with legs', 'A spaceship on a pizza', 'A shy octopus', 'A tree with a face', 'A duck with a briefcase', 'A tiny dragon', 'A moon wearing sunglasses', 'A penguin on a skateboard',
-  'A crying onion', 'A whale on a mountain', 'A clock melting', 'A hungry sandwich', 'A pirate cat', 'A broken robot', 'A cupcake monster', 'A flying fish', 'A haunted chair', 'A boot with a flower',
-  'A lighthouse in a storm', 'A llama in a hat', 'A rocket made of bread', 'A fox with an umbrella', 'A frog prince', 'A watermelon knight'];
+const FORGERY_PROMPTS = ['A seagull stealing a wedding cake', 'A grandma riding a motorcycle through a car wash', 'A knight eating soup with a spoon way too small', 'A cat DJing for a room full of confused fish',
+  'A robot trying to hug a cactus', 'A snowman melting at his own birthday party', 'A dragon who is scared of a tiny mouse', 'A raccoon in a tuxedo robbing a bakery',
+  'A giraffe stuck inside a phone booth', 'A pirate ship sailing through a bowl of cereal', 'A ghost sitting in traffic', 'A shark learning to knit', 'A wizard whose spell turned him into a toaster',
+  'A penguin on a first date at a pizza place', 'A dinosaur using a self-checkout machine', 'A very proud potato getting an award', 'An octopus trying to put on eight socks', 'A tiny king arguing with a giant chicken',
+  'A pigeon pilot landing on a hot dog', 'A bear in a bathtub reading the news', 'A squirrel running for president', 'A flamingo doing yoga on a skateboard', 'A banana slipping on a person',
+  'A haunted vending machine', 'A mermaid stuck in a very small bathtub', 'A llama in a suit giving a speech', 'A frog conducting an orchestra of crickets', 'A mad scientist making a sandwich',
+  'A sleepy volcano wearing pajamas', 'A crab opening a tiny restaurant', 'A vampire who is afraid of sunlight and also clouds', 'A walrus winning a dance contest', 'A burger with a very angry face',
+  'A spaceship parked in a grocery store lot', 'A camel at the world\'s smallest oasis', 'A duck chasing a bus', 'A zombie politely asking for directions', 'A hedgehog on a hot air balloon',
+  'A turtle in a sports car', 'A moose in a library', 'A bored alien in a waiting room', 'A snail delivering a very urgent pizza', 'A cow auditioning for a talent show',
+  'A mummy stuck in a revolving door', 'A werewolf getting a haircut', 'A kangaroo carrying way too many groceries', 'A fox selling umbrellas in a desert', 'A chef fighting a lobster with a baguette',
+  'A cloud having a really bad day', 'A hippo trying to fit in a tiny car', 'A rooster at a rave'];
 const FA_WORDS = [
-  { cat: 'Monster', words: ['Vampire', 'Zombie', 'Werewolf', 'Mummy', 'Ghost', 'Dragon', 'Frankenstein', 'Kraken'] },
-  { cat: 'Animal', words: ['Elephant', 'Penguin', 'Giraffe', 'Octopus', 'Kangaroo', 'Hedgehog', 'Flamingo', 'Panda'] },
-  { cat: 'Food', words: ['Pizza', 'Hamburger', 'Spaghetti', 'Ice Cream', 'Sushi', 'Pancake', 'Taco', 'Popcorn'] },
-  { cat: 'Vehicle', words: ['Helicopter', 'Submarine', 'Bicycle', 'Rocket', 'Tractor', 'Sailboat', 'Train', 'Skateboard'] },
-  { cat: 'Building', words: ['Castle', 'Lighthouse', 'Igloo', 'Windmill', 'Pyramid', 'Treehouse', 'Skyscraper', 'Barn'] },
-  { cat: 'Sport', words: ['Basketball', 'Surfing', 'Archery', 'Skiing', 'Boxing', 'Bowling', 'Fencing', 'Golf'] },
-  { cat: 'Job', words: ['Astronaut', 'Pirate', 'Chef', 'Firefighter', 'Wizard', 'Farmer', 'Detective', 'Clown'] },
-  { cat: 'Instrument', words: ['Guitar', 'Trumpet', 'Drums', 'Piano', 'Violin', 'Harp', 'Banjo', 'Flute'] },
-  { cat: 'Nature', words: ['Volcano', 'Waterfall', 'Rainbow', 'Tornado', 'Cactus', 'Mountain', 'Island', 'Glacier'] },
-  { cat: 'Toy', words: ['Teddy Bear', 'Yo-yo', 'Kite', 'Robot', 'Puzzle', 'Doll', 'Train Set', 'Spinning Top'] },
+  { cat: 'Monster', words: ['Vampire', 'Zombie', 'Werewolf', 'Mummy', 'Ghost', 'Dragon', 'Frankenstein', 'Kraken', 'Medusa', 'Bigfoot'] },
+  { cat: 'Animal', words: ['Elephant', 'Penguin', 'Giraffe', 'Octopus', 'Kangaroo', 'Hedgehog', 'Flamingo', 'Panda', 'Chameleon', 'Narwhal'] },
+  { cat: 'Food', words: ['Pizza', 'Hamburger', 'Spaghetti', 'Ice Cream', 'Sushi', 'Pancake', 'Taco', 'Popcorn', 'Cotton Candy', 'Pineapple Pizza'] },
+  { cat: 'Vehicle', words: ['Helicopter', 'Submarine', 'Bicycle', 'Rocket', 'Tractor', 'Sailboat', 'Train', 'Skateboard', 'Hot Air Balloon', 'Monster Truck'] },
+  { cat: 'Building', words: ['Castle', 'Lighthouse', 'Igloo', 'Windmill', 'Pyramid', 'Treehouse', 'Skyscraper', 'Barn', 'Haunted House', 'Space Station'] },
+  { cat: 'Sport', words: ['Basketball', 'Surfing', 'Archery', 'Skiing', 'Boxing', 'Bowling', 'Fencing', 'Golf', 'Skydiving', 'Sumo Wrestling'] },
+  { cat: 'Job', words: ['Astronaut', 'Pirate', 'Chef', 'Firefighter', 'Wizard', 'Farmer', 'Detective', 'Clown', 'Mad Scientist', 'Ninja'] },
+  { cat: 'Instrument', words: ['Guitar', 'Trumpet', 'Drums', 'Piano', 'Violin', 'Harp', 'Banjo', 'Flute', 'Bagpipes', 'Accordion'] },
+  { cat: 'Nature', words: ['Volcano', 'Waterfall', 'Rainbow', 'Tornado', 'Cactus', 'Mountain', 'Island', 'Glacier', 'Quicksand', 'Northern Lights'] },
+  { cat: 'Toy', words: ['Teddy Bear', 'Yo-yo', 'Kite', 'Robot', 'Puzzle', 'Doll', 'Train Set', 'Spinning Top', 'Rubik\'s Cube', 'Slinky'] },
 ];
 const FA_COLORS = ['#e6194b', '#3cb44b', '#4363d8', '#f58231', '#911eb4', '#0abab5', '#c4a000', '#f032e6', '#8b5a2b', '#808080', '#000000', '#ff7aa2', '#2e8b57', '#5b3fd0', '#b22222', '#00a0e0', '#9acd32', '#ff4500', '#6a5acd', '#d2691e'];
-const PANIC_PROMPTS = ['A flamingo stuck in a vending machine', 'A wizard doing his taxes', 'A pigeon starting a podcast', 'Grandma skydiving into a cake', 'A T-rex using a smartphone', 'A banana wearing a tuxedo at court',
-  'A robot crying at a wedding', 'A cow on a first date with a toaster', 'A knight fighting a Roomba', 'A llama on a roller coaster', 'A snowman in a sauna', 'A shark learning to cook',
-  'A raccoon DJing at a funeral', 'An octopus knitting sweaters', 'A potato running a marathon', 'A dragon at the dentist', 'Aliens at a bake sale', 'A pirate lost in IKEA',
-  'A cat piloting a tiny airplane', 'A mermaid in a bathtub', 'A ghost applying for a job', 'A hamster leading an army', 'A frog selling insurance', 'A penguin at a beach party',
-  'A giant duck in a traffic jam', 'A vampire at the dentist', 'A snail winning a race', 'A scarecrow on a date', 'A walrus in a tuxedo', 'A wizard stuck in an elevator'];
+const PANIC_PROMPTS = ['A flamingo stuck in a vending machine', 'A wizard doing his taxes', 'A pigeon starting a podcast', 'Grandma skydiving into a cake', 'A T-rex using a smartphone', 'A banana wearing a tuxedo at court', 'A robot crying at a wedding', 'A cow on a first date with a toaster', 'A knight fighting a Roomba', 'A llama on a roller coaster', 'A snowman in a sauna', 'A shark learning to cook', 'A raccoon DJing at a funeral', 'An octopus knitting sweaters', 'A potato running a marathon', 'A dragon at the dentist', 'Aliens at a bake sale', 'A pirate lost in IKEA', 'A cat piloting a tiny airplane', 'A mermaid in a bathtub', 'A ghost applying for a job', 'A hamster leading an army', 'A frog selling insurance', 'A penguin at a beach party', 'A giant duck in a traffic jam', 'A vampire at the dentist', 'A snail winning a race', 'A scarecrow on a date', 'A walrus in a tuxedo', 'A wizard stuck in an elevator', 'A hamster running a tiny taxi company', 'A dragon returning a library book 400 years late', 'A crab teaching a yoga class', 'A cat arguing with its own reflection in court', 'A sloth in a hurry', 'A robot buying its first pair of shoes', 'A bear stuck in a drive-through', 'A cow lifting weights at the gym', 'A turtle on a skateboard doing a trick', 'Santa stuck in a chimney at a barbecue', 'A giraffe getting a haircut in a salon', 'A ghost scared of a tiny puppy', 'A penguin selling ice to a polar bear', 'A wizard losing a duel to a pigeon', 'A mailman being chased by a giant snail', 'A shark in a bubble bath', 'A knight taking a selfie with a dragon', 'A pizza delivery guy on a unicorn', 'A goldfish walking a human on a leash', 'An astronaut finding a pizza on the moon'];
 
 // ------------------------------------------------------------------ helpers shared by modes
 const kindOf = (type) => (type === 'draw' || type === 'forge1' || type === 'forge2' || type === 'panic' ? 'draw' : 'text');
@@ -208,20 +210,19 @@ const forgery = {
     const s = R.s;
     s.players = s.players.filter((p) => p.connected);
     const order = shuffle(s.players.map((p) => p.id)), n = order.length;
-    const prompts = shuffle(FORGERY_PROMPTS);
     const perm = shuffle(order), copies = {}; // copier -> owner (nobody copies themself)
     perm.forEach((pid, i) => { copies[pid] = perm[(i + 1) % n]; });
-    s.game = { gid: rid(6), mode: 'forgery', order, n, round: -1, type: null, prompts: Object.fromEntries(order.map((id, i) => [id, prompts[i]])), copies, submitted: {}, deadline: null, duration: 0, peek: 0, finishing: false, cases: null, votes: {} };
+    s.game = { gid: rid(6), mode: 'forgery', order, n, round: -1, type: null, prompts: {}, copies, submitted: {}, deadline: null, duration: 0, peek: 0, finishing: false, cases: null, votes: {} };
     s.phase = 'play'; s.view = null; s.final = null;
     await R.clearStored();
     forgery.begin(R, 0); R.save();
   },
-  begin(R, r) {
+  begin(R, r) {            // 0 write secret prompt · 1 draw it · 2 copy someone's from a peek · 3 vote
     const g = R.s.game;
     R.cancelTasks();
-    g.round = r; g.submitted = {}; g.finishing = false; g.type = ['forge1', 'forge2', 'vote'][r];
-    g.duration = R.ms([60000, 45000, 50000][r]);
-    g.peek = r === 1 ? 5000 : 0;
+    g.round = r; g.submitted = {}; g.finishing = false; g.type = ['forge0', 'forge1', 'forge2', 'vote'][r];
+    g.duration = R.ms([30000, 60000, 45000, 50000][r]);
+    g.peek = r === 2 ? 5000 : 0;
     g.deadline = g.duration ? Date.now() + g.duration + g.peek : null;
     if (g.duration) R.schedule('m', g.duration + g.peek, { k: 'timeup', r });
     R.broadcastState();
@@ -231,11 +232,11 @@ const forgery = {
   async sendTurn(R, p) {
     const g = R.s.game;
     if (!g || R.s.phase !== 'play' || !g.order.includes(p.id)) return;
-    if (g.round === 2) return forgery.sendCases(R, p);
-    let prompt;
-    if (g.round === 0) prompt = { kind: 'text', content: g.prompts[p.id] };
-    else { const img = await R.ctx.storage.get(`fg:o:${g.copies[p.id]}`); prompt = img ? { kind: 'image', content: img } : { kind: 'empty' }; }
-    R.sendTo(p, { t: 'turn', gid: g.gid, mode: 'forgery', round: g.round, total: 3, type: g.type, prompt, peek: g.peek,
+    if (g.round === 3) return forgery.sendCases(R, p);
+    let prompt = null;
+    if (g.round === 1) prompt = { kind: 'text', content: g.prompts[p.id] };
+    else if (g.round === 2) { const img = await R.ctx.storage.get(`fg:o:${g.copies[p.id]}`); prompt = img ? { kind: 'image', content: img } : { kind: 'empty' }; }
+    R.sendTo(p, { t: 'turn', gid: g.gid, mode: 'forgery', round: g.round, total: 4, type: g.type, prompt, peek: g.peek,
       duration: g.duration, remaining: g.deadline ? Math.max(0, g.deadline - Date.now()) : null, submitted: !!g.submitted[p.id] });
   },
   async sendCases(R, p) {
@@ -253,18 +254,22 @@ const forgery = {
     if (s.phase === 'play') return forgery.sendTurn(R, p);
     if (s.phase === 'results') return forgery.sendCases(R, p);
   },
-  pub(R, g) { return { round: g.round, total: 3, type: g.type, remaining: g.deadline ? Math.max(0, g.deadline - Date.now()) : null }; },
+  pub(R, g) { return { round: g.round, total: 4, type: g.type, remaining: g.deadline ? Math.max(0, g.deadline - Date.now()) : null }; },
   async onSubmit(R, me, m) {
     const s = R.s, g = s.game;
     if (!g || s.phase !== 'play' || m.round !== g.round || g.finishing || !g.order.includes(me.id)) return;
-    if (g.round === 2) return;
-    await putSub(R, me.id, cleanImg(m.content));
+    if (g.round === 3) return;
+    await putSub(R, me.id, g.round === 0 ? cleanText(m.content) : cleanImg(m.content));
     g.submitted[me.id] = true; R.broadcastState(); R.save(); forgery.check(R);
   },
   async onMessage(R, me, m) {
     const s = R.s, g = s.game;
+    if (m.t === 'edit') {
+      if (!g || s.phase !== 'play' || g.round !== 0 || g.finishing) return true;
+      delete g.submitted[me.id]; R.broadcastState(); R.save(); return true;
+    }
     if (m.t === 'vote') {
-      if (!g || s.phase !== 'play' || g.round !== 2 || g.finishing || !g.order.includes(me.id) || !m.votes || typeof m.votes !== 'object') return true;
+      if (!g || s.phase !== 'play' || g.round !== 3 || g.finishing || !g.order.includes(me.id) || !m.votes || typeof m.votes !== 'object') return true;
       const v = {};
       g.cases.forEach((c, i) => { if (c.owner !== me.id && c.copier !== me.id && (m.votes[i] === 0 || m.votes[i] === 1)) v[i] = m.votes[i]; });
       g.votes[me.id] = v; g.submitted[me.id] = true; R.broadcastState(); R.save(); forgery.check(R); return true;
@@ -289,15 +294,22 @@ const forgery = {
     if (!g || s.phase !== 'play' || g.round !== r) return;
     R.cancelTasks();
     const st = R.ctx.storage;
-    if (r < 2) {
+    if (r < 3) {
       const subs = await st.get(g.order.map((pid) => `sub:${pid}`));
-      const puts = {};
-      for (const pid of g.order) { const sub = g.submitted[pid] ? subs.get(`sub:${pid}`) : null; puts[`fg:${r === 0 ? 'o' : 'c'}:${pid}`] = sub ? sub.c : ''; }
-      await st.put(puts); await st.delete(g.order.map((pid) => `sub:${pid}`));
-      if (r === 1) {
-        const copierOf = {}; for (const c of g.order) copierOf[g.copies[c]] = c;
-        g.cases = shuffle(g.order).map((owner) => ({ owner, copier: copierOf[owner], order: shuffle(['o', 'c']) }));
+      const sub = (pid) => (g.submitted[pid] ? subs.get(`sub:${pid}`) : null);
+      if (r === 0) {                       // custom prompts; anyone who typed nothing gets a random one from the fallback list
+        const spare = shuffle(FORGERY_PROMPTS);
+        for (const pid of g.order) { const t = sub(pid) && sub(pid).c; g.prompts[pid] = t || spare.pop() || 'A very confusing octopus'; }
+      } else {
+        const puts = {};
+        for (const pid of g.order) puts[`fg:${r === 1 ? 'o' : 'c'}:${pid}`] = sub(pid) ? sub(pid).c : '';
+        await st.put(puts);
+        if (r === 2) {
+          const copierOf = {}; for (const c of g.order) copierOf[g.copies[c]] = c;
+          g.cases = shuffle(g.order).map((owner) => ({ owner, copier: copierOf[owner], order: shuffle(['o', 'c']) }));
+        }
       }
+      await st.delete(g.order.map((pid) => `sub:${pid}`));
       forgery.begin(R, r + 1); R.save(); return;
     }
     // scoring: 100 to a voter who finds the real one, 100 to its artist per finder, 50 to the copycat per player fooled
@@ -429,15 +441,26 @@ const panic = {
     const s = R.s;
     s.players = s.players.filter((p) => p.connected);
     const order = shuffle(s.players.map((p) => p.id));
-    s.game = { gid: rid(6), mode: 'panic', order, n: order.length, round: -1, phase: 'draw', prompts: shuffle(PANIC_PROMPTS).slice(0, 3), submitted: {}, votes: {}, seq: 0,
+    s.game = { gid: rid(6), mode: 'panic', order, n: order.length, round: -1, phase: 'draw', prompts: [], prompter: null, submitted: {}, votes: {}, seq: 0,
       scores: Object.fromEntries(order.map((id) => [id, 0])), hist: [], deadline: null, last: null, show: [] };
     s.phase = 'play'; s.view = null; s.final = null;
     await R.clearStored();
     panic.begin(R, 0); R.save();
   },
+  // each round one player (rotating) types the prompt while everyone else waits, then all draw it
   begin(R, r) {
     const g = R.s.game; R.cancelTasks();
-    g.round = r; g.phase = 'draw'; g.submitted = {}; g.votes = {}; g.last = null; g.seq++; g.deadline = Date.now() + 30000;
+    g.round = r; g.phase = 'pick'; g.submitted = {}; g.votes = {}; g.last = null; g.seq++;
+    g.prompter = g.order[r % g.order.length];
+    const pp = R.s.players.find((p) => p.id === g.prompter);
+    const wait = pp && pp.connected ? 25000 : 1000;
+    g.deadline = Date.now() + wait;
+    R.schedule('m', wait, { k: 'pickend', seq: g.seq });
+    R.broadcastState(); R.save();
+  },
+  startDraw(R) {
+    const g = R.s.game; R.cancelTasks();
+    g.phase = 'draw'; g.submitted = {}; g.seq++; g.deadline = Date.now() + 30000;
     R.schedule('m', 30000 + 2500, { k: 'drawend', seq: g.seq });
     R.broadcastState();
     for (const p of R.s.players) panic.sendTurn(R, p);
@@ -454,9 +477,9 @@ const panic = {
   },
   async sync(R, p) {
     const s = R.s, g = s.game; if (!g || s.phase !== 'play') return;
-    if (g.phase === 'draw') panic.sendTurn(R, p); else await panic.sendItems(R, p);
+    if (g.phase === 'draw') panic.sendTurn(R, p); else if (g.phase !== 'pick') await panic.sendItems(R, p);
   },
-  pub(R, g) { return { phase: g.phase, round: g.round, total: 3, prompt: g.prompts[g.round], scores: g.scores, last: g.last, remaining: g.deadline ? Math.max(0, g.deadline - Date.now()) : null }; },
+  pub(R, g) { return { phase: g.phase, round: g.round, total: 3, prompter: g.prompter, prompt: g.prompts[g.round] || null, scores: g.scores, last: g.last, remaining: g.deadline ? Math.max(0, g.deadline - Date.now()) : null }; },
   async onSubmit(R, me, m) {
     const s = R.s, g = s.game;
     if (!g || s.phase !== 'play' || g.phase !== 'draw' || m.round !== g.round || !g.order.includes(me.id)) return;
@@ -467,6 +490,11 @@ const panic = {
   },
   async onMessage(R, me, m) {
     const s = R.s, g = s.game;
+    if (m.t === 'prompt') {
+      if (!g || s.phase !== 'play' || g.phase !== 'pick' || me.id !== g.prompter) return true;
+      const text = cleanText(m.text, MAX_TEXT); if (!text) return true;
+      g.prompts[g.round] = text; panic.startDraw(R); return true;
+    }
     if (m.t !== 'vote') return false;
     if (!g || s.phase !== 'play' || g.phase !== 'vote' || !g.order.includes(me.id) || !g.order.includes(m.for) || m.for === me.id) return true;
     g.votes[me.id] = m.for; g.submitted[me.id] = true; R.broadcastState();
@@ -477,6 +505,10 @@ const panic = {
     const s = R.s, g = s.game;
     if (!g || s.phase !== 'play' || a.seq !== g.seq) return;
     const st = R.ctx.storage;
+    if (a.k === 'pickend' && g.phase === 'pick') {
+      if (!g.prompts[g.round]) g.prompts[g.round] = pick(PANIC_PROMPTS.filter((x) => !g.prompts.includes(x)));
+      panic.startDraw(R); return;
+    }
     if (a.k === 'drawend' && g.phase === 'draw') {
       R.cancelTasks();
       const subs = await st.get(g.order.map((pid) => `sub:${pid}`));
@@ -492,7 +524,7 @@ const panic = {
       const counts = Object.fromEntries(g.order.map((id) => [id, 0]));
       for (const v of Object.values(g.votes)) counts[v]++;
       for (const id of g.order) g.scores[id] += counts[id] * 100;
-      g.last = { counts, scores: { ...g.scores } }; g.hist.push({ prompt: g.prompts[g.round], counts });
+      g.last = { counts, scores: { ...g.scores } }; g.hist.push({ prompt: g.prompts[g.round], by: g.prompter, counts });
       g.phase = 'result'; g.seq++; g.deadline = Date.now() + 8000;
       R.schedule('m', 8000, { k: 'next', seq: g.seq });
       R.broadcastState(); R.save(); return;
